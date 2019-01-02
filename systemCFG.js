@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const mkdirp = require(require.resolve("./node_modules/mkdirp"));
+const mkdirp = require(path.resolve("./node_modules/mkdirp"));
 
 const specialChar = {
   newLineCReturn : "\x0D\x0A",
