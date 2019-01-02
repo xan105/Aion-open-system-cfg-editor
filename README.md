@@ -3,7 +3,7 @@ Description
 
 An open source editor for the '*system.cfg*' file of the game Aion.
 
-<p align="center"><img src="https://github.com/xan105/Aion-open-system-cfg-editor/raw/master/screenshot/screenshot.png" height="400px"/></p>
+<p align="center"><img src="https://github.com/xan105/Aion-open-system-cfg-editor/raw/master/screenshot/screenshot.png" height="500px"/></p>
 
 How does it work ? Latin1 table XOR deobfuscator.
 
