@@ -3,7 +3,8 @@ const path = require('path');
 const mkdirp = require(require.resolve("../node_modules/mkdirp"));
 
 const specialChar = {
-  newLine : "\x0D\x0A",
+  newLineCReturn : "\x0D\x0A",
+  newLine : "\x0A",
   comment : "\x2D\x2D" 
 }
 
@@ -26,7 +27,7 @@ module.exports.read = function(file) {
 
 module.exports.write = function(file,data) {
   return new Promise((resolve,reject) => {
-    let result = parse(data);
+    let result = parse(data,true);
     mkdirp(path.parse(file).dir, function (err) { 
           if (err) {
             return reject(err);
@@ -43,17 +44,21 @@ module.exports.write = function(file,data) {
   });
 }
 
-function parse(data) {
 
-   let line = data.split(specialChar.newLine);
+function parse(data,textarea = false) {
+
+   let lineDelimiter = (textarea) ? specialChar.newLine : specialChar.newLineCReturn;
+   let returnLine = (textarea) ? specialChar.newLineCReturn : specialChar.newLine;
+   
+   let line = data.split(lineDelimiter);
    line.pop();
           
    for (i in line) {
 
        if (line[i].startsWith(specialChar.comment)) {
-           line[i] = line[i]+specialChar.newLine;
+           line[i] = line[i]+returnLine;
        } else {
-           line[i] = convert(line[i])+specialChar.newLine;
+           line[i] = convert(line[i])+returnLine;
        }
    }
          
@@ -75,8 +80,9 @@ function convert(string) {
     if (hex.length % 2) {
       hex = '0' + hex;
     }
-  
+      
     hexa_string.push(hex);
+
   
   }
 
